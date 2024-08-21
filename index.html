@@ -421,27 +421,31 @@
 
                             <h2 class="fw-bold pb-4">Get In Touch</h2>
 
-                            <form name="contactform" action="contact.php" method="post"
-                                class="form-group contact-form mt-4">
+                            <form name="contactform" 
+                                class="form-group contact-form mt-4"
+                                id="submit-form" novalidate>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" minlength="2" name="name" placeholder="Name*"
-                                            class="form-control" required="">
+                                        <input id="name" type="text" minlength="2" name="name" placeholder="Name*"
+                                            class="form-control" required>
+                                        <div class="invalid-feedback">Name should not be empty</div>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="email" name="email" placeholder="E-mail*" class="form-control"
-                                            required="">
+                                        <input id="email" type="email" name="email" placeholder="E-mail*" class="form-control"
+                                            required>
+                                            <div class="invalid-feedback">You should provide a valid email</div>
+                                            <div class="valid-feedback">Email is now valid</div>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-12">
 
-                                        <textarea class="form-control mt-4 mb-4" name="message" placeholder="Message"
-                                            style="height: 150px;" required=""></textarea>
+                                        <textarea id="message" class="form-control mt-4 mb-4" name="message" placeholder="Message"
+                                            style="height: 150px;" required></textarea>
+                                        <div class="invalid-feedback">Message should not be empty</div>
 
-
-                                        <button type="submit" name="submit" class="btn btn-primary btn-lg ">SEND
+                                        <button type="submit"  name="submit" id="submit-btn" class="btn btn-primary btn-lg ">SEND
                                             IT</button>
 
 
@@ -530,7 +534,31 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+    <script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script type="text/javascript">
+  emailjs.init('tPSuqsoLNdS85paBV')
+
+const form = document.getElementById("submit-form");
+
+form.addEventListener("submit", (e) => {
+  if (!form.checkValidity()) {
+    e.preventDefault();
+  }
+  else{
+
+      let params = {from_name: document.getElementById("name").value,
+      from_email: document.getElementById("email").value,
+      message: document.getElementById("message").value
+    }
+    console.log(params)
+    emailjs.send('service_32as7sm','template_epnunia', params).then((res)=>{alert(res)})
+    }
+form.classList.add("was-validated");
+});
+
+</script>
 
 </body>
 
