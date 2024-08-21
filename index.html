@@ -576,6 +576,7 @@
 const form = document.getElementById("submit-form");
 
 form.addEventListener("submit", (e) => {
+    e.preventDefault();
   if (!form.checkValidity()) {
     e.preventDefault();
   }
@@ -586,7 +587,7 @@ form.addEventListener("submit", (e) => {
       message: document.getElementById("message").value
     }
     console.log(params)
-    emailjs.send('service_32as7sm','template_epnunia', params).then((res)=>{alert(res)})
+    emailjs.send('service_32as7sm','template_epnunia', params).then((res)=>{alert("Your message has been sent")})
     }
 form.classList.add("was-validated");
 });
